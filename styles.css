@@ -1,0 +1,387 @@
+/* ==========================================================================
+   1. DESIGN TOKENS (CSS variables)
+   WHY: every colour, size and spacing value lives here ONCE. Changing the
+   whole site's look later means editing this block only, not hunting through
+   hundreds of lines.
+   ========================================================================== */
+:root {
+  /* ---- Colours (Terracotta Letterpress palette) ---- */
+  --color-paper: #F8EBD8;          /* page background, the "paper" */
+  --color-ink: #4A2C2A;            /* ALL text + dark buttons. WHY: strong contrast on cream, readable in sunlight */
+  --color-accent: #D1603D;         /* terracotta: decoration, hover underline, focus ring. NOT small text (contrast ~3.3:1, my estimate; verify with a checker) */
+  --color-tape: #E8B88A;           /* tan: tape clips only. NEVER text, which was the problem in your mockup */
+  --color-frame: #FFFBF3;          /* photo-frame white, slightly warm so it doesn't glare against the paper */
+  --color-ruled-line: rgba(209, 96, 61, 0.14); /* faint notebook lines; low alpha keeps text readable over them */
+
+  /* ---- Typography ---- */
+  --font-heading: "Fraunces", Georgia, serif;          /* fallback stacks show instantly while web fonts load (display=swap) */
+  --font-body: "Fredoka", system-ui, sans-serif;
+  --font-size-body: 1.0625rem;
+  --font-size-logo: 1.35rem;
+  /* WHY clamp(): the size glides between min and max as the screen grows, replacing 2-3 breakpoint overrides */
+  --font-size-hero: clamp(2.25rem, 1.4rem + 4vw, 4rem);
+
+  /* ---- Layout & spacing ---- */
+  --page-gutter: 1.25rem;          /* side padding; also keeps the tape clips (which poke out ~1rem) on screen */
+  --page-max-width: 72rem;
+  --section-space: 4rem;           /* vertical padding of each section */
+  --header-height: 4.25rem;
+  --line-gap: 2rem;                /* distance between the ruled paper lines */
+  --radius-button: 0.75rem;
+
+  /* ---- Tape clip look (shared by the button and the photo frame) ---- */
+  --tape-width: 2.75rem;
+  --tape-height: 1.1rem;
+  --tape-opacity: 0.9;
+
+  /* ---- Header/nav behaviour: PHONE values (base). Tablet/desktop only reassign these ---- */
+  --nav-toggle-display: inline-flex;   /* hamburger visible */
+  --nav-list-display: none;            /* dropdown closed; opened via aria-expanded (see section 5) */
+  --nav-list-position: absolute;       /* dropdown hangs under the header */
+  --nav-list-direction: column;
+  --nav-list-background: var(--color-paper);
+  --nav-list-padding: 0.5rem var(--page-gutter) 1rem;
+  --nav-list-border: 2px dashed var(--color-tape);
+  --nav-link-padding: 0.75rem 0;       /* big tap targets for thumbs */
+  --logo-margin-end: auto;             /* pushes button + menu to the right edge */
+  --cta-order: 2;                      /* phone visual order: logo, Book a Call, Menu */
+  --nav-order: 3;
+
+  /* ---- Hero ---- */
+  --hero-columns: 1fr;                 /* single column on phone/tablet */
+  --hero-gap: 3rem;
+  --frame-padding: 0.75rem;
+  --frame-tilt: -2deg;
+}
+
+/* ==========================================================================
+   TABLET (min 640px): media query #1
+   WHY only variables: components update automatically, nothing repeated.
+   ========================================================================== */
+@media (min-width: 640px) {
+  :root {
+    --page-gutter: 2rem;
+    --section-space: 5rem;
+    --header-height: 5rem;
+    --font-size-logo: 1.6rem;
+    --line-gap: 2.25rem;
+    --frame-padding: 1rem;
+    --tape-width: 3.25rem;
+  }
+}
+
+/* ==========================================================================
+   DESKTOP (min 1024px): media query #2
+   WHY the nav switches here: logo + 4 links + button need ~800px+ of room.
+   ========================================================================== */
+@media (min-width: 1024px) {
+  :root {
+    --page-gutter: 3rem;
+    --section-space: 6rem;
+    --hero-columns: 1.1fr 0.9fr;       /* text left, photo right */
+    --hero-gap: 4rem;
+
+    /* Nav flips from dropdown to inline row, purely by reassigning variables */
+    --nav-toggle-display: none;
+    --nav-list-display: flex;
+    --nav-list-position: static;
+    --nav-list-direction: row;
+    --nav-list-background: transparent;
+    --nav-list-padding: 0;
+    --nav-list-border: none;
+    --nav-link-padding: 0.25rem 0.5rem;
+    --logo-margin-end: 0;
+    --cta-order: 0;                    /* back to DOM order: logo, nav, button */
+    --nav-order: 0;
+  }
+}
+
+/* ==========================================================================
+   2. RESET + BASE
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;   /* WHY: padding/border don't add to width, so layout maths stays predictable */
+  margin: 0;                /* WHY: removes inconsistent browser default margins; we set spacing deliberately */
+  padding: 0;
+}
+
+html {
+  /* WHY: anchor jumps (#work) would otherwise hide the heading under the sticky header */
+  scroll-padding-top: var(--header-height);
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  line-height: 1.6;
+  color: var(--color-ink);
+  background-color: var(--color-paper);
+  /* RULED PAPER: a repeating gradient draws one 1px line per --line-gap.
+     WHY a gradient, not an image: zero bytes downloaded, scales on every screen, and recolours via the variable */
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(var(--line-gap) - 1px),
+    var(--color-ruled-line) calc(var(--line-gap) - 1px),
+    var(--color-ruled-line) var(--line-gap)
+  );
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.15;     /* tight leading suits big display text */
+}
+
+img {
+  display: block;        /* WHY: removes the tiny gap inline images leave under them */
+  max-width: 100%;       /* WHY: an image can never overflow its container on small phones */
+  height: auto;
+}
+
+ul { list-style: none; }
+
+a { color: inherit; }
+
+/* WHY: keyboard users must see where they are. Accent ring is visible on cream AND dark buttons */
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   3. LAYOUT HELPER
+   ========================================================================== */
+.content-wrapper {
+  width: 100%;
+  max-width: var(--page-max-width);
+  margin-inline: auto;                 /* centres the block on wide screens */
+  padding-inline: var(--page-gutter);
+}
+
+/* ==========================================================================
+   4. SHARED BUTTON + TAPE STYLES
+   ========================================================================== */
+.book-call-button,
+.primary-action-button,
+.secondary-action-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;                 /* 44px+ tap target: Apple/Google accessibility guidance */
+  padding-inline: 1.1rem;
+  border: 2px solid var(--color-ink);
+  border-radius: var(--radius-button);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: transform 0.15s ease;
+}
+
+.book-call-button,
+.primary-action-button {
+  background-color: var(--color-ink);
+  color: var(--color-paper);           /* cream on dark brown: high contrast */
+}
+
+.secondary-action-button {
+  background-color: transparent;
+  color: var(--color-ink);
+}
+
+.book-call-button:hover,
+.primary-action-button:hover,
+.secondary-action-button:hover {
+  transform: translateY(-2px);         /* small lift = feels clickable, costs no performance (GPU transform) */
+}
+
+/* TAPE CLIPS: two rotated translucent rectangles in opposite corners.
+   WHY pseudo-elements: decoration stays out of the HTML, so screen readers ignore it.
+   WHY pointer-events:none: the tape must never steal clicks from the button. */
+.book-call-button {
+  position: relative;                  /* anchors the absolutely-positioned tape to THIS button */
+  order: var(--cta-order);
+}
+
+.book-call-button::before,
+.book-call-button::after,
+.hero-photo-frame::before {
+  content: "";                         /* required, or pseudo-elements don't render */
+  position: absolute;
+  width: var(--tape-width);
+  height: var(--tape-height);
+  background-color: var(--color-tape);
+  opacity: var(--tape-opacity);
+  pointer-events: none;
+}
+
+.book-call-button::before {            /* top-left strip */
+  top: -0.4rem;
+  left: -0.9rem;
+  transform: rotate(-35deg);
+}
+
+.book-call-button::after {             /* bottom-right strip */
+  bottom: -0.4rem;
+  right: -0.9rem;
+  transform: rotate(-35deg);
+}
+
+/* ==========================================================================
+   5. HEADER + NAV
+   ========================================================================== */
+.site-header {
+  position: sticky;                    /* stays visible while scrolling; ALSO the anchor for the mobile dropdown */
+  top: 0;
+  z-index: 10;                         /* keeps it above scrolling content */
+  background-color: var(--color-paper);/* solid, or page content would show through while scrolling */
+  border-bottom: 2px dashed var(--color-tape);
+}
+
+.header-inner-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;                         /* clearance so the button's tape never touches the logo */
+  height: var(--header-height);
+}
+
+.site-logo-link {
+  margin-right: var(--logo-margin-end);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--font-size-logo);
+  text-decoration: none;
+  white-space: nowrap;                 /* WHY: a logo wrapping onto two lines looks broken */
+}
+
+.main-navigation {
+  order: var(--nav-order);
+}
+
+.nav-toggle-button {
+  display: var(--nav-toggle-display);
+  align-items: center;
+  min-height: 2.75rem;
+  padding-inline: 0.9rem;
+  background-color: transparent;
+  color: var(--color-ink);
+  border: 2px solid var(--color-ink);
+  border-radius: var(--radius-button);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.nav-link-list {
+  display: var(--nav-list-display);
+  position: var(--nav-list-position);
+  top: 100%;                           /* sits directly under the header (ignored when position is static) */
+  left: 0;
+  right: 0;
+  flex-direction: var(--nav-list-direction);
+  gap: 0.25rem;
+  padding: var(--nav-list-padding);
+  background-color: var(--nav-list-background);
+  border-bottom: var(--nav-list-border);
+}
+
+/* WHY aria-expanded drives the visuals: ONE source of truth. The attribute screen readers
+   announce is the SAME thing that shows the menu, so they can never disagree. JS only flips the attribute. */
+.nav-toggle-button[aria-expanded="true"] + .nav-link-list {
+  display: flex;
+}
+
+.nav-link {
+  display: block;
+  padding: var(--nav-link-padding);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+/* Hand-drawn feel: a wavy accent underline on hover/focus (pure CSS, no image download) */
+.nav-link:hover,
+.nav-link:focus-visible {
+  text-decoration: underline wavy var(--color-accent) 2px;
+  text-underline-offset: 0.35rem;
+}
+
+/* ==========================================================================
+   6. HERO
+   ========================================================================== */
+.hero-section {
+  padding-block: var(--section-space);
+}
+
+.hero-layout-grid {
+  display: grid;
+  grid-template-columns: var(--hero-columns);
+  gap: var(--hero-gap);
+  align-items: center;
+}
+
+.hero-intro-label {
+  margin-bottom: 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  /* ink, not accent: small terracotta text fails contrast */
+}
+
+.hero-main-heading {
+  font-size: var(--font-size-hero);
+  margin-bottom: 1.25rem;
+}
+
+.hero-description-text {
+  max-width: 34rem;                    /* ~60 characters per line is the most readable measure */
+  margin-bottom: 2rem;
+}
+
+.hero-action-group {
+  display: flex;
+  flex-wrap: wrap;                     /* buttons stack on very narrow phones instead of overflowing */
+  gap: 1rem;
+}
+
+/* POLAROID PHOTO FRAME */
+.hero-photo-frame {
+  position: relative;                  /* anchors the top tape strip */
+  width: min(100%, 24rem);             /* never wider than 24rem, never wider than the screen */
+  justify-self: center;
+  padding: var(--frame-padding);
+  background-color: var(--color-frame);
+  border-radius: 0.25rem;
+  box-shadow: 0 0.75rem 1.5rem rgba(74, 44, 42, 0.18);  /* ink-tinted shadow looks softer than pure black */
+  transform: rotate(var(--frame-tilt));
+}
+
+.hero-photo-frame::before {            /* the strip holding the photo to the page */
+  top: -0.6rem;
+  left: 50%;
+  width: 5rem;
+  transform: translateX(-50%) rotate(-3deg);
+}
+
+.hero-profile-photo {
+  width: 100%;
+  aspect-ratio: 1 / 1;                 /* matches your 800x800 file, so the frame can't distort it */
+  object-fit: cover;
+}
+
+/* ==========================================================================
+   7. ACCESSIBILITY: respect "reduce motion" system setting
+   NOTE: this is a user-preference query, NOT a layout breakpoint, so your
+   "two media queries" rule still holds for layout.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}

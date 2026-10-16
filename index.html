@@ -9,51 +9,44 @@
  <!-- tints the Android Chrome address bar to match  paper colour  -->
   <meta name="theme-color" content="#F8EBD8">
 
-  <!-- WHY canonical: tells search engines which URL is the "real" one if the page is reachable at several -->
-  <link rel="canonical" href="YOUR-LIVE-SITE-URL">
+  <!-- tells search engines which URL is the "real" one -->
+  <link rel="canonical" href="https://jude-irom.pages.dev/">
 
-  <!-- ============ OPEN GRAPH (link previews on WhatsApp, LinkedIn, Facebook, Slack) ============ -->
-  <!-- WHY these matter for you: in Nigeria, links get shared on WhatsApp constantly,
-       and these tags decide whether your link shows a nice card or a bare URL -->
+
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Jude Irom">
   <meta property="og:locale" content="en_NG">
   <meta property="og:title" content="Jude Irom | Web Developer">
   <meta property="og:description" content="Jude Irom is a web developer skilled in HTML5, CSS3 and vanilla JavaScript. Explore my projects and get in touch.">
-  <!-- FILL IN: full live URL of your portfolio, e.g. https://yourname.pages.dev/ -->
-  <meta property="og:url" content="YOUR-LIVE-SITE-URL">
-  <!-- FILL IN: FULL absolute URL of a preview image (1200x630px, under 300KB). Relative paths do not work here -->
-  <meta property="og:image" content="YOUR-FULL-IMAGE-URL">
+  <meta property="og:url" content="https://jude-irom.pages.dev/">
+
+  <meta property="og:image" content="https://jude-irom.pages.dev/images/me.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <!-- FILL IN: one sentence describing the image, for accessibility -->
-  <meta property="og:image:alt" content="YOUR-IMAGE-DESCRIPTION">
+  <meta property="og:image:alt" content="A picture of myself">
 
-  <!-- WHY Twitter/X tags: X ignores some OG tags and wants its own card type -->
+
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Jude Irom | Web Developer">
   <meta name="twitter:description" content="Jude Irom is a web developer skilled in HTML5, CSS3 and vanilla JavaScript. Explore my projects and get in touch.">
-  <meta name="twitter:image" content="YOUR-FULL-IMAGE-URL">
+  <meta name="twitter:image" content="https://jude-irom.pages.dev/images/me.png">
 
-  <!-- FILL IN: favicon file you create later (an SVG is tiny, which suits low-bandwidth users) -->
+  <!--image that shows in the browser url -->
   <link rel="icon" href="images/YOUR-FAVICON.svg" type="image/svg+xml">
 
-  <!-- WHY preconnect: opens the connection to Google Fonts early, so the fonts arrive sooner on slow networks -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <!-- WHY only 2 families and 4 weights total: every extra weight is another download on mobile data.
-       display=swap shows text in a fallback font immediately instead of a blank page while fonts load -->
+
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Fredoka:wght@400;500&display=swap">
 
-  <!-- WHY your stylesheet comes AFTER the fonts: it can then reference them, and it is the one file that blocks rendering,
-       so keeping it small matters -->
-  <link rel="stylesheet" href="css/style.css">
+
+  <link rel="stylesheet" href="./styles.css">
 </head>
 
 <body>
 
-  <!-- ============ HEADER + NAV ============ -->
+  <!-- HEADER + NAV  -->
   <header class="site-header">
     <!-- WHY content-wrapper: one reusable class that caps the width and adds side padding everywhere,
          so you set the page width in ONE place (a CSS variable) -->
@@ -62,14 +55,11 @@
       <a href="#home" class="site-logo-link">Jude Irom</a>
 
       <nav class="main-navigation" aria-label="Main navigation">
-        <!-- WHY a toggle button: 4 links + a button will not fit on a 360px phone.
-             It is hidden on desktop by CSS; JS (next phases) flips aria-expanded.
-             aria-expanded/aria-controls tell screen readers whether the menu is open -->
+        
         <button class="nav-toggle-button" type="button" aria-expanded="false" aria-controls="nav-link-list">
           Menu
         </button>
 
-        <!-- WHY <ul>: a nav is semantically a list of links; screen readers announce "list, 4 items" -->
         <ul class="nav-link-list" id="nav-link-list">
           <li><a href="#home" class="nav-link">Home</a></li>
           <li><a href="#about" class="nav-link">About</a></li>
@@ -78,23 +68,21 @@
         </ul>
       </nav>
 
-      <!-- FILL IN: where should this go? (email, WhatsApp, Calendly...) Temporary: scrolls to the footer -->
-      <a href="#contact" class="book-call-button">Book a Call</a>
+      <a href="https://wa.me/2349132094665?text=Hi%20Jude%2C%20I%27d%20like%20to%20book%20a%20call." class="book-call-button" target="_blank" rel="noopener noreferrer">Book a Call</a>
+
 
     </div>
   </header>
 
-  <!-- WHY <main>: marks the primary content, so keyboard and screen-reader users can jump past the header -->
   <main>
 
-    <!-- ============ HERO ============ -->
+    <!--HERO-->
     <section id="home" class="hero-section">
       <div class="content-wrapper hero-layout-grid">
 
         <div class="hero-text-block">
           <p class="hero-intro-label">Web Developer</p>
 
-          <!-- WHY exactly one <h1> per page: it is the page's main topic for search engines and screen readers -->
           <h1 class="hero-main-heading">I build fast, clean websites that work on any phone.</h1>
 
           <p class="hero-description-text">
@@ -107,33 +95,28 @@
           </div>
         </div>
 
-        <!-- WHY <figure>: this is a self-contained image. The frame, tape and tilt are done in CSS, so no extra markup -->
         <figure class="hero-photo-frame">
-          <!-- FILL IN: your real filename and its real pixel size.
-               WHY width/height: the browser reserves the space before the image loads, so the page does not jump.
-               WHY NO loading="lazy" here: this is the first thing users see; lazy-loading it would slow the page.
-               fetchpriority="high" tells the browser to download it first.
-               TIP: export as .webp, ~800px wide, under 100KB, because phone data is costly -->
+          
           <img
             class="hero-profile-photo"
-            src="images/YOUR-PHOTO.webp"
+            src="./images/me.png"
             alt="Portrait of Jude Irom"
             width="800"
-            height="1000"
+            height="800"
             fetchpriority="high">
         </figure>
 
       </div>
     </section>
 
-    <!-- ============ ABOUT ============ -->
+    <!--ABOUT-->
     <section id="about" class="about-section">
       <div class="content-wrapper">
         <h2 class="section-heading-title">About Me</h2>
 
         <!-- FILL IN: write 2-3 sentences in your own voice. Who are you, what do you enjoy building, where are you based? -->
         <p class="about-description-text">
-          [WRITE YOUR OWN ABOUT TEXT HERE]
+          Front-End Developer With 1 Year Of Experience Building responsive web fronend With HTML, CSS And JavaScript.
         </p>
 
         <h3 class="skills-subheading-title">Skills</h3>
@@ -145,7 +128,7 @@
       </div>
     </section>
 
-    <!-- ============ FEATURED WORK ============ -->
+    <!--FEATURED WORK-->
     <section id="work" class="work-section">
       <div class="content-wrapper">
         <h2 class="section-heading-title">Featured Work</h2>
@@ -157,7 +140,7 @@
                WHY loading="lazy" here: it sits below the fold, so it should not compete with the hero image -->
           <img
             class="project-preview-image"
-            src="images/YOUR-BURGER-SCREENSHOT.webp"
+            src="./images/main-mock.png"
             alt="Screenshot of the Burger Life website"
             width="800"
             height="500"
@@ -166,12 +149,10 @@
           <div class="project-card-body">
             <h3 class="project-title-heading">Burger Life</h3>
 
-            <!-- FILL IN: adjust this draft to describe what the site really does -->
             <p class="project-description-text">
-              A responsive burger restaurant website built from scratch. [EDIT: add 1 sentence on what you are proudest of.]
+              A responsive burger restaurant website built from scratch.
             </p>
 
-            <!-- FILL IN: confirm these match what you actually used on this project -->
             <ul class="project-tech-list">
               <li class="project-tech-item">HTML5</li>
               <li class="project-tech-item">CSS3</li>
@@ -191,24 +172,21 @@
 
   </main>
 
-  <!-- ============ FOOTER / CONTACT ============ -->
-  <!-- WHY the footer is the contact section: matches your one-page plan, and #contact keeps the URL short -->
+  <!--FOOTER / CONTACT-->
   <footer id="contact" class="site-footer">
     <div class="content-wrapper">
       <h2 class="footer-heading-title">Let's Work Together</h2>
 
       <ul class="footer-contact-list">
-        <!-- FILL IN: replace each placeholder; delete any you do not want -->
-        <li><a href="mailto:YOUR-EMAIL" class="footer-contact-link">YOUR-EMAIL</a></li>
-        <li><a href="YOUR-GITHUB-URL" class="footer-contact-link" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-        <li><a href="YOUR-LINKEDIN-URL" class="footer-contact-link" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><a href="mailto:iromjai111@gmail.com" class="footer-contact-link">YOUR-EMAIL</a></li>
+        <li><a href="https://github.com/chofamgen" class="footer-contact-link" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/judeirom/?isSelfProfile=true" class="footer-contact-link" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
       </ul>
 
       <p class="footer-copyright-text">&copy; 2026 Jude Irom. All rights reserved.</p>
     </div>
   </footer>
 
-  <!-- WHY at the end + defer: the HTML is fully parsed and painted before the script runs, so JS never delays first paint -->
   <script src="js/main.js" defer></script>
 </body>
 </html>
