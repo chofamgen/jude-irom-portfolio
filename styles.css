@@ -1,11 +1,5 @@
-/* ==========================================================================
-   1. DESIGN TOKENS (CSS variables)
-   WHY: every colour, size and spacing value lives here ONCE. Changing the
-   whole site's look later means editing this block only, not hunting through
-   hundreds of lines.
-   ========================================================================== */
 :root {
-  /* ---- Colours (Terracotta Letterpress palette) ---- */
+  /*  Colours (Terracotta Letterpress palette)  */
   --color-paper: #F8EBD8;          /* page background, the "paper" */
   --color-ink: #4A2C2A;            /* ALL text + dark buttons. WHY: strong contrast on cream, readable in sunlight */
   --color-accent: #D1603D;         /* terracotta: decoration, hover underline, focus ring. NOT small text (contrast ~3.3:1, my estimate; verify with a checker) */
@@ -13,15 +7,15 @@
   --color-frame: #FFFBF3;          /* photo-frame white, slightly warm so it doesn't glare against the paper */
   --color-ruled-line: rgba(209, 96, 61, 0.14); /* faint notebook lines; low alpha keeps text readable over them */
 
-  /* ---- Typography ---- */
-  --font-heading: "Fraunces", Georgia, serif;          /* fallback stacks show instantly while web fonts load (display=swap) */
+  /*  Typography  */
+  --font-heading: "Fraunces", Georgia, serif;          
   --font-body: "Fredoka", system-ui, sans-serif;
   --font-size-body: 1.0625rem;
   --font-size-logo: 1.35rem;
   /* WHY clamp(): the size glides between min and max as the screen grows, replacing 2-3 breakpoint overrides */
   --font-size-hero: clamp(2.25rem, 1.4rem + 4vw, 4rem);
 
-  /* ---- Layout & spacing ---- */
+  /*  Layout & spacing  */
   --page-gutter: 1.25rem;          /* side padding; also keeps the tape clips (which poke out ~1rem) on screen */
   --page-max-width: 72rem;
   --section-space: 4rem;           /* vertical padding of each section */
@@ -29,12 +23,12 @@
   --line-gap: 2rem;                /* distance between the ruled paper lines */
   --radius-button: 0.75rem;
 
-  /* ---- Tape clip look (shared by the button and the photo frame) ---- */
+  /*  Tape clip look (shared by the button and the photo frame)  */
   --tape-width: 2.75rem;
   --tape-height: 1.1rem;
   --tape-opacity: 0.9;
 
-  /* ---- Header/nav behaviour: PHONE values (base). Tablet/desktop only reassign these ---- */
+  /*  Header/nav behaviour: PHONE values (base). Tablet/desktop only reassign these  */
   --nav-toggle-display: inline-flex;   /* hamburger visible */
   --nav-list-display: none;            /* dropdown closed; opened via aria-expanded (see section 5) */
   --nav-list-position: absolute;       /* dropdown hangs under the header */
@@ -47,17 +41,33 @@
   --cta-order: 2;                      /* phone visual order: logo, Book a Call, Menu */
   --nav-order: 3;
 
-  /* ---- Hero ---- */
+  /*  Hero  */
   --hero-columns: 1fr;                 /* single column on phone/tablet */
   --hero-gap: 3rem;
   --frame-padding: 0.75rem;
   --frame-tilt: -2deg;
+
+  /*  Section headings + featured work card: PHONE values (base)  */
+  --section-heading-size: clamp(1.75rem, 1.2rem + 2.5vw, 2.5rem); /* WHY clamp: scales smoothly, no breakpoint needed */
+  --font-size-card-title: clamp(1.5rem, 1.25rem + 1.2vw, 2rem);
+  --heading-space: 2rem;                  /* gap between a section heading and its content */
+  --radius-card: 1rem;
+  --card-shadow-offset: 0.35rem;          /* distance of the hard "letterpress" shadow */
+  --color-image-backdrop: #F6E3CB;        /* soft tan panel behind the mockup (my by-eye pick, tweak freely) */
+  --project-card-columns: 1fr;            /* phone: image on top, details below */
+  --project-card-gap: 1.5rem;
+  --project-card-padding: 1rem;
+  --project-image-max-height: 22rem;      /* WHY: a portrait mockup would otherwise be taller than the phone screen */
+
+  /*  About: PHONE values (base). The footer needs no new variables; it reuses --section-space and the heading variables  */
+  --font-size-subheading: 1.25rem;
+  --about-text-max-width: 38rem;        /* ~60-70 characters per line is the most readable measure */
 }
 
-/* ==========================================================================
+/* 
    TABLET (min 640px): media query #1
    WHY only variables: components update automatically, nothing repeated.
-   ========================================================================== */
+   */
 @media (min-width: 640px) {
   :root {
     --page-gutter: 2rem;
@@ -67,19 +77,31 @@
     --line-gap: 2.25rem;
     --frame-padding: 1rem;
     --tape-width: 3.25rem;
+        --heading-space: 2.5rem;
+    --card-shadow-offset: 0.5rem;
+    --project-card-padding: 1.5rem;
+    --project-image-max-height: 28rem;
   }
 }
 
-/* ==========================================================================
+/* 
    DESKTOP (min 1024px): media query #2
    WHY the nav switches here: logo + 4 links + button need ~800px+ of room.
-   ========================================================================== */
+   */
 @media (min-width: 1024px) {
   :root {
     --page-gutter: 3rem;
     --section-space: 6rem;
     --hero-columns: 1.1fr 0.9fr;       /* text left, photo right */
     --hero-gap: 4rem;
+
+        --heading-space: 3rem;
+    /* WHY minmax(0, ...): grid items default to min-width:auto, so a big image can refuse to shrink and
+       blow the column out. minmax(0, ...) lets each column shrink below its content. */
+    --project-card-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);   /* image left (narrower), details right */
+    --project-card-gap: 2.5rem;
+    --project-card-padding: 2rem;
+    --project-image-max-height: 30rem;
 
     /* Nav flips from dropdown to inline row, purely by reassigning variables */
     --nav-toggle-display: none;
@@ -96,9 +118,9 @@
   }
 }
 
-/* ==========================================================================
+/* 
    2. RESET + BASE
-   ========================================================================== */
+   */
 *,
 *::before,
 *::after {
@@ -118,8 +140,7 @@ body {
   line-height: 1.6;
   color: var(--color-ink);
   background-color: var(--color-paper);
-  /* RULED PAPER: a repeating gradient draws one 1px line per --line-gap.
-     WHY a gradient, not an image: zero bytes downloaded, scales on every screen, and recolours via the variable */
+
   background-image: repeating-linear-gradient(
     to bottom,
     transparent 0,
@@ -132,12 +153,12 @@ body {
 h1, h2, h3 {
   font-family: var(--font-heading);
   font-weight: 700;
-  line-height: 1.15;     /* tight leading suits big display text */
+  line-height: 1.15;     
 }
 
 img {
-  display: block;        /* WHY: removes the tiny gap inline images leave under them */
-  max-width: 100%;       /* WHY: an image can never overflow its container on small phones */
+  display: block;        
+  max-width: 100%;      
   height: auto;
 }
 
@@ -151,9 +172,9 @@ a { color: inherit; }
   outline-offset: 3px;
 }
 
-/* ==========================================================================
+/* 
    3. LAYOUT HELPER
-   ========================================================================== */
+   */
 .content-wrapper {
   width: 100%;
   max-width: var(--page-max-width);
@@ -161,9 +182,9 @@ a { color: inherit; }
   padding-inline: var(--page-gutter);
 }
 
-/* ==========================================================================
+/* 
    4. SHARED BUTTON + TAPE STYLES
-   ========================================================================== */
+   */
 .book-call-button,
 .primary-action-button,
 .secondary-action-button {
@@ -208,7 +229,8 @@ a { color: inherit; }
 
 .book-call-button::before,
 .book-call-button::after,
-.hero-photo-frame::before {
+.hero-photo-frame::before,
+.project-card::before {
   content: "";                         /* required, or pseudo-elements don't render */
   position: absolute;
   width: var(--tape-width);
@@ -230,9 +252,9 @@ a { color: inherit; }
   transform: rotate(-35deg);
 }
 
-/* ==========================================================================
+/* 
    5. HEADER + NAV
-   ========================================================================== */
+   */
 .site-header {
   position: sticky;                    /* stays visible while scrolling; ALSO the anchor for the mobile dropdown */
   top: 0;
@@ -310,9 +332,9 @@ a { color: inherit; }
   text-underline-offset: 0.35rem;
 }
 
-/* ==========================================================================
+/* 
    6. HERO
-   ========================================================================== */
+   */
 .hero-section {
   padding-block: var(--section-space);
 }
@@ -374,14 +396,184 @@ a { color: inherit; }
   object-fit: cover;
 }
 
-/* ==========================================================================
+/* 
    7. ACCESSIBILITY: respect "reduce motion" system setting
    NOTE: this is a user-preference query, NOT a layout breakpoint, so your
    "two media queries" rule still holds for layout.
-   ========================================================================== */
+   */
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
 }
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
+}
+
+
+/* ==========================================================================
+   8. SHARED SECTION HEADING (used by About AND Featured Work)
+   ========================================================================== */
+.section-heading-title {
+  font-size: var(--section-heading-size);
+  margin-bottom: var(--heading-space);
+  /* WHY the wavy underline: same hand-drawn mark as the nav hover, so the page feels like one system.
+     Pure CSS = 0 bytes downloaded; it recolours automatically via --color-accent. */
+  text-decoration: underline wavy var(--color-accent) 2px;
+  text-underline-offset: 0.5rem;
+}
+
+/* ==========================================================================
+   9. FEATURED WORK
+   Dependencies: the tape recipe in section 4 (Edit 4 adds .project-card::before to it).
+   ========================================================================== */
+.about-section,
+.work-section {
+  padding-block: var(--section-space);
+}
+
+/* The card is the grid. Its two children (img + .project-card-body) become the two columns.
+   WHY NO overflow:hidden here: it would clip the tape clip that pokes outside the corner. */
+.project-card {
+  position: relative;                    /* anchors the tape clip */
+  display: grid;
+  grid-template-columns: var(--project-card-columns);   /* 1 column on phone/tablet, 2 on desktop */
+  gap: var(--project-card-gap);
+  align-items: center;                   /* centres the text vertically against the tall mockup */
+  padding: var(--project-card-padding);
+  background-color: var(--color-frame);
+  border: 2px solid var(--color-ink);
+  border-radius: var(--radius-card);
+  /* Hard offset shadow with 0 blur = printed/letterpress feel, and cheaper to paint than a blurred one */
+  box-shadow: var(--card-shadow-offset) var(--card-shadow-offset) 0 var(--color-tape);
+}
+
+/* Tape clip, top-left corner. Size/colour come from the shared recipe.
+   NOTE: absolutely positioned, so it does NOT become a grid cell (a normal-flow ::before would
+   become an extra grid item and push your columns out of place). */
+.project-card::before {
+  top: -0.6rem;
+  left: -0.9rem;
+  transform: rotate(-35deg);
+}
+
+.project-preview-image {
+  width: 100%;
+  max-height: var(--project-image-max-height);   /* stops a portrait image from dominating the screen */
+  object-fit: contain;                           /* shows the WHOLE mockup, never crops or stretches it */
+  background-color: var(--color-image-backdrop);
+  border-radius: var(--radius-button);
+}
+
+.project-card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;               /* children keep natural width, so the button doesn't stretch full width */
+  gap: 1rem;
+}
+
+.project-title-heading {
+  font-size: var(--font-size-card-title);
+}
+
+/* Tech badges. Ink text on a light card, so contrast is safe (tan is never used for text). */
+.project-tech-list,
+.skill-badge-list {
+  display: flex;
+  flex-wrap: wrap;                       /* badges wrap on narrow phones instead of overflowing */
+  gap: 0.5rem;
+}
+
+.project-tech-item,
+.skill-badge-item {
+  padding: 0.2rem 0.8rem;
+  border: 2px solid var(--color-ink);
+  border-radius: 999px;                  /* fully rounded pill */
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.project-live-link {
+  margin-top: 0.5rem;                    /* extra breathing room above the button */
+}
+
+/* ==========================================================================
+   10. UTILITY: visually hidden, still read by screen readers
+   WHY not display:none: that hides it from screen readers too, which defeats the purpose.
+   ========================================================================== */
+.screen-reader-only-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+
+/* ==========================================================================
+   11. ABOUT
+   Dependencies: section padding (Edit 2), badge styles (Edit 3), .section-heading-title (section 8).
+   ========================================================================== */
+.about-description-text {
+  max-width: var(--about-text-max-width);   /* WHY: lines wider than ~70 characters are tiring to read */
+  margin-bottom: 2rem;
+}
+
+.skills-subheading-title {
+  font-size: var(--font-size-subheading);
+  margin-bottom: 1rem;
+}
+
+/* ==========================================================================
+   12. FOOTER / CONTACT
+   Dependencies: --section-space, --section-heading-size, --heading-space (all from earlier phases).
+   ========================================================================== */
+.site-footer {
+  padding-block: var(--section-space);
+  background-color: var(--color-ink);        /* solid colour also covers the ruled-paper lines behind it */
+  color: var(--color-paper);                 /* cream on dark brown: roughly 10:1 contrast, so it's easy to read */
+  border-top: 4px dashed var(--color-tape);  /* echoes the dashed line under the header */
+  text-align: center;
+}
+
+.footer-heading-title {
+  font-size: var(--section-heading-size);
+  margin-bottom: var(--heading-space);
+}
+
+.footer-contact-list {
+  display: flex;
+  flex-wrap: wrap;                           /* links wrap on narrow phones instead of overflowing */
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.footer-contact-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;                       /* 44px+ tap target */
+  padding-inline: 1.25rem;
+  border: 2px solid var(--color-paper);
+  border-radius: var(--radius-button);
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* WHY hover AND focus-visible together: keyboard users get the same feedback as mouse users */
+.footer-contact-link:hover,
+.footer-contact-link:focus-visible {
+  background-color: var(--color-paper);      /* colours invert on hover */
+  color: var(--color-ink);
+}
+
+/* WHY override the focus ring here: the global ring is terracotta, which is weak against dark brown.
+   Tan is clearly visible. The selector is more specific than the global :focus-visible, so it wins. */
+.site-footer :focus-visible {
+  outline-color: var(--color-tape);
+}
+
+.footer-copyright-text {
+  font-size: 0.875rem;
 }

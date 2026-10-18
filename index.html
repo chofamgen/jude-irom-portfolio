@@ -1,35 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jude Irom | Web Developer</title>
 
-  <meta name="description" content="Jude Irom is a web developer skilled in HTML5, CSS3 and vanilla JavaScript. Explore my projects and get in touch.">
- <!-- tints the Android Chrome address bar to match  paper colour  -->
+  <meta name="description"
+    content="Jude Irom is a web developer skilled in HTML5, CSS3 and vanilla JavaScript. Explore my projects and get in touch.">
+  <!-- tints the Android Chrome address bar to match  paper colour  -->
   <meta name="theme-color" content="#F8EBD8">
 
   <!-- tells search engines which URL is the "real" one -->
-  <link rel="canonical" href="https://jude-irom.pages.dev/">
+  <link rel="canonical" href="https://judeirom.me/">
 
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Jude Irom">
   <meta property="og:locale" content="en_NG">
   <meta property="og:title" content="Jude Irom | Web Developer">
-  <meta property="og:description" content="Jude Irom is a web developer skilled in HTML5, CSS3 and vanilla JavaScript. Explore my projects and get in touch.">
+  <meta property="og:description"
+    content="Jude Irom is a web developer skilled in HTML5, CSS3 and vanilla JavaScript. Explore my projects and get in touch.">
   <meta property="og:url" content="https://judeirom.me/">
 
-  <meta property="og:image" content="https://judeirom.me//images/me.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
+  <meta property="og:image" content="https://judeirom.me/images/me.png">
+  <meta property="og:image:width" content="800">
+  <meta property="og:image:height" content="800">
   <meta property="og:image:alt" content="A picture of myself">
 
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Jude Irom | Web Developer">
-  <meta name="twitter:description" content="Jude Irom is a web developer skilled in HTML5, CSS3 and vanilla JavaScript. Explore my projects and get in touch.">
-  <meta name="twitter:image" content="https://judeirom.me//images/me.png">
+  <meta name="twitter:description"
+    content="Jude Irom is a web developer skilled in HTML5, CSS3 and vanilla JavaScript. Explore my projects and get in touch.">
+  <meta name="twitter:image" content="https://judeirom.me/images/me.png">
 
   <!--image that shows in the browser url -->
   <link rel="icon" href="./images/me.svg" type="image/svg+xml">
@@ -38,7 +42,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Fredoka:wght@400;500&display=swap">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Fredoka:wght@400;500&display=swap">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+  <link rel="stylesheet" href="https://cloudflare.com" /> <!--  font awesome-->
 
 
   <link rel="stylesheet" href="./styles.css">
@@ -55,7 +63,7 @@
       <a href="#home" class="site-logo-link">Jude Irom</a>
 
       <nav class="main-navigation" aria-label="Main navigation">
-        
+
         <button class="nav-toggle-button" type="button" aria-expanded="false" aria-controls="nav-link-list">
           Menu
         </button>
@@ -68,7 +76,8 @@
         </ul>
       </nav>
 
-      <a href="https://wa.me/2349132094665?text=Hi%20Jude%2C%20I%27d%20like%20to%20book%20a%20call." class="book-call-button" target="_blank" rel="noopener noreferrer">Book a Call</a>
+      <a href="https://wa.me/2349132094665?text=Hi%20Jude%2C%20I%27d%20like%20to%20book%20a%20call."
+        class="book-call-button" target="_blank" rel="noopener noreferrer">Book a Call</a>
 
 
     </div>
@@ -96,13 +105,8 @@
         </div>
 
         <figure class="hero-photo-frame">
-          
-          <img
-            class="hero-profile-photo"
-            src="./images/me.png"
-            alt="Portrait of Jude Irom"
-            width="800"
-            height="800"
+
+          <img class="hero-profile-photo" src="./images/me.png" alt="Portrait of Jude Irom" width="800" height="800"
             fetchpriority="high">
         </figure>
 
@@ -114,9 +118,9 @@
       <div class="content-wrapper">
         <h2 class="section-heading-title">About Me</h2>
 
-        <!-- FILL IN: write 2-3 sentences in your own voice. Who are you, what do you enjoy building, where are you based? -->
         <p class="about-description-text">
-          Front-End Developer With 1 Year Of Experience Building responsive web fronend With HTML, CSS And JavaScript.
+          I'm a front-end developer with 1 year of experience building responsive websites with HTML, CSS and
+          JavaScript. I care about pages that load fast,feel good on a phone and most importantly saves wait time.
         </p>
 
         <h3 class="skills-subheading-title">Skills</h3>
@@ -138,13 +142,8 @@
 
           <!-- FILL IN: take a screenshot of the burger site, save as .webp, ~800px wide.
                WHY loading="lazy" here: it sits below the fold, so it should not compete with the hero image -->
-          <img
-            class="project-preview-image"
-            src="./images/main-mock.png"
-            alt="Screenshot of the Burger Life website"
-            width="800"
-            height="500"
-            loading="lazy">
+          <img class="project-preview-image" src="./images/main-mock.png"
+            alt="Burger Life website shown on a phone screen" width="616" height="1132" loading="lazy">
 
           <div class="project-card-body">
             <h3 class="project-title-heading">Burger Life</h3>
@@ -159,16 +158,67 @@
               <li class="project-tech-item">JavaScript</li>
             </ul>
 
-            <!-- WHY target="_blank" + rel="noopener noreferrer": the new tab otherwise gets a reference to
-                 your page (window.opener) and could redirect it. This is a real security habit to build now -->
-            <a href="https://burger-life.pages.dev/" class="project-live-link" target="_blank" rel="noopener noreferrer">
+            <a href="https://burger-life.pages.dev/" class="primary-action-button project-live-link" target="_blank"
+              rel="noopener noreferrer">
               Visit Live Site
+              <!-- <span class="screen-reader-only-text">(opens in a new tab)</span> -->
+              <span class="material-symbols-outlined">
+                open_in_new
+              </span>
             </a>
           </div>
 
+
+
         </article>
       </div>
+
+
+
+
+
+      <!--==================== PROJRCT CARD2 =============================-->
+      <!-- <div class="content-wrapper">
+        <h2 class="section-heading-title"></h2>
+
+        <article class="project-card">
+
+
+          <img class="project-preview-image" src="./images/main-mock.png"
+            alt="Burger Life website shown on a phone screen" width="616" height="1132" loading="lazy">
+
+          <div class="project-card-body">
+            <h3 class="project-title-heading">Burger Life</h3>
+
+            <p class="project-description-text">
+              A responsive burger restaurant website built from scratch.
+            </p>
+
+            <ul class="project-tech-list">
+              <li class="project-tech-item">HTML5</li>
+              <li class="project-tech-item">CSS3</li>
+              <li class="project-tech-item">JavaScript</li>
+            </ul>
+
+            <a href="https://burger-life.pages.dev/" class="primary-action-button project-live-link" target="_blank"
+              rel="noopener noreferrer">
+              Visit Live Site
+              <span class="screen-reader-only-text">(opens in a new tab)</span>
+              <span class="material-symbols-outlined">
+                open_in_new
+              </span>
+            </a>
+          </div>
+ -->
+
+
+        </article>
+      </div>
+
     </section>
+
+
+
 
   </main>
 
@@ -178,9 +228,15 @@
       <h2 class="footer-heading-title">Let's Work Together</h2>
 
       <ul class="footer-contact-list">
-        <li><a href="mailto:iromjai111@gmail.com" class="footer-contact-link">YOUR-EMAIL</a></li>
-        <li><a href="https://github.com/chofamgen" class="footer-contact-link" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-        <li><a href="https://www.linkedin.com/in/judeirom/?isSelfProfile=true" class="footer-contact-link" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><a href="mailto:iromjai111@gmail.com" class="footer-contact-link">EMAIL </a> </li>
+
+        <li><a href="https://github.com/chofamgen" class="footer-contact-link" target="_blank"
+            rel="noopener noreferrer">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/judeirom/?isSelfProfile=true" class="footer-contact-link"
+            target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+
+        <li><a href="https://wa.me/2349132094665" class="footer-contact-link" target="_blank"
+            rel="noopener noreferrer">WhatsApp</a></li>
       </ul>
 
       <p class="footer-copyright-text">&copy; 2026 Jude Irom. All rights reserved.</p>
@@ -189,4 +245,5 @@
 
   <script src="js/main.js" defer></script>
 </body>
+
 </html>
