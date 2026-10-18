@@ -529,7 +529,7 @@ a { color: inherit; }
    Dependencies: --section-space, --section-heading-size, --heading-space (all from earlier phases).
    ========================================================================== */
 .site-footer {
-  padding-block: var(--section-space);
+  padding-block: var(--section-space /0.2);
   background-color: var(--color-ink);        /* solid colour also covers the ruled-paper lines behind it */
   color: var(--color-paper);                 /* cream on dark brown: roughly 10:1 contrast, so it's easy to read */
   border-top: 4px dashed var(--color-tape);  /* echoes the dashed line under the header */
