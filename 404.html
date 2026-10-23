@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page not found | Jude Irom</title>
+    <!-- WHY noindex: a "not found" page must never show up in search results -->
+    <meta name="robots" content="noindex">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700&family=Fredoka:wght@400;500&display=swap">
+    <!-- WHY /styles.css with a leading slash: a 404 can be served at ANY path, so a relative path would break -->
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+    <main class="hero-section">
+        <div class="content-wrapper">
+            <h1 class="hero-main-heading">Page not found🥺.</h1>
+            <p class="hero-description-text">That page doesn't exist, but the rest of the site does 😌.</p>
+            <!-- Reuses an existing button class, so no new CSS is needed -->
+            <a href="/" class="primary-action-button">Back to Home</a>
+        </div>
+    </main>
+</body>
+
+</html>

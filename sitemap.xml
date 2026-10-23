@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- WHY: lists your URLs for search engines. One entry, because it's a one-page site.
+     Update lastmod when you make real changes. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://judeirom.me/</loc>
+    <lastmod>2026-10-23</lastmod>
+  </url>
+</urlset>

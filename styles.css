@@ -2,7 +2,7 @@
   /*  Colours (Terracotta Letterpress palette)  */
   --color-paper: #F8EBD8;          /* page background, the "paper" */
   --color-ink: #4A2C2A;            /* ALL text + dark buttons. WHY: strong contrast on cream, readable in sunlight */
-  --color-accent: #D1603D;         /* terracotta: decoration, hover underline, focus ring. NOT small text (contrast ~3.3:1, my estimate; verify with a checker) */
+  --color-accent: #D1603D;         /* terracotta: decoration, hover underline, focus ring. NOT small text */
   --color-tape: #E8B88A;           /* tan: tape clips only. NEVER text, which was the problem in your mockup */
   --color-frame: #FFFBF3;          /* photo-frame white, slightly warm so it doesn't glare against the paper */
   --color-ruled-line: rgba(209, 96, 61, 0.14); /* faint notebook lines; low alpha keeps text readable over them */
@@ -12,7 +12,6 @@
   --font-body: "Fredoka", system-ui, sans-serif;
   --font-size-body: 1.0625rem;
   --font-size-logo: 1.35rem;
-  /* WHY clamp(): the size glides between min and max as the screen grows, replacing 2-3 breakpoint overrides */
   --font-size-hero: clamp(2.25rem, 1.4rem + 4vw, 4rem);
 
   /*  Layout & spacing  */
@@ -231,7 +230,7 @@ a { color: inherit; }
 .book-call-button::after,
 .hero-photo-frame::before,
 .project-card::before {
-  content: "";                         /* required, or pseudo-elements don't render */
+  content: "";                        
   position: absolute;
   width: var(--tape-width);
   height: var(--tape-height);
